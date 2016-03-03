@@ -7,8 +7,8 @@ int DecimalState();
 int EndState();
 
 int (* state[])(void) = {StartState, IntegerState, DecimalState, EndState};
-enum states {start, integer, decimal, end};
-enum input {isSign, isDigit, isPoint, isTerminator, isInvalid};
+enum states {start, integer, decimal, end} currentState;
+enum input {isSign, isDigit, isPoint, isTerminator, isInvalid} inputChar;
 
 struct transition{
 	enum states thisState;
@@ -32,6 +32,7 @@ static const struct transition change_state[] = {
 };
 
 int main(int argc, char *argv[]) {
+	currentState = start;
 	return 0;
 }
 
