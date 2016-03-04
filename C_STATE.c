@@ -1,45 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
-
-int StartState();
-int IntegerState();
-int DecimalState();
-int EndState();
-
-int (* state[])(void) = {StartState, IntegerState, DecimalState, EndState};
-enum states {start, integer, decimal, end};
-enum inputType {isNegSign,isPosSign, isDigit, isPoint, isTerminator, isInvalid};
-
-struct transition{
-	enum states thisState;
-	enum inputType action;
-	enum states nextState;
-};
-
-enum inputType GetInputType(char input);
-
-static const struct transition change_state[] = {
-	{start, isPosSign, integer},
-	{start, isNegSign, integer},
-	{start, isDigit, integer},
-	{start, isPoint, decimal},
-	{start, isTerminator, end},
-	{start, isInvalid, end},
-	{integer, isPosSign, end},
-	{integer, isNegSign, end},
-	{integer, isDigit, integer},
-	{integer, isPoint, decimal},
-	{integer, isTerminator, end},
-	{integer, isInvalid, end},
-	{decimal, isPosSign, end},
-	{decimal, isNegSign, end},
-	{decimal, isDigit, decimal},
-	{decimal, isPoint, end},
-	{decimal, isTerminator, end},
-	{decimal, isInvalid, end}
-};
+#include "C_STATE.h"
 
 int sign;
 double value;
@@ -58,11 +17,11 @@ int main(int argc, char **argv) {
 	for(i = 0;i<=lengthOfInput;i++){
 		int strLen = strlen(*argv);	
 		character = input[i];
-		printf("Input char = %c  ", character,currentState);
+		printf("Input char = %c  ", character);
 		stateFunction = state[currentState];
 		entries = stateFunction();
 	}
-	printf("The calculated value is: %f\n",value);
+	printf("The calculated value is: %.2f\n",value);
 	return 0;
 }
 
