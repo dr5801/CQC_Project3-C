@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 
 int StartState();
 int IntegerState();
@@ -7,13 +9,13 @@ int DecimalState();
 int EndState();
 
 int (* state[])(void) = {StartState, IntegerState, DecimalState, EndState};
-enum states {start, integer, decimal, end} currentState;
-enum input {isSign, isDigit, isPoint, isTerminator, isInvalid} inputChar;
+enum states {start, integer, decimal, end};
+enum input {isSign, isDigit, isPoint, isTerminator, isInvalid};
 
 struct transition{
 	enum states thisState;
-	enum states nextState;
 	enum input action;
+	enum states nextState;
 };
 
 static const struct transition change_state[] = {
@@ -31,12 +33,29 @@ static const struct transition change_state[] = {
 	{decimal, isInvalid, end}
 };
 
-int main(int argc, char *argv[]) {
-	currentState = start;
+int sign;
+int value;
+double point;
+char character;
+
+int main(int argc, char **argv) {
+	enum states currentState = start;
+	enum input entries;
+	int (* stateFunction)(void);
+
+	do{
+		static int i = 0;
+		character = *argv[++i];
+		stateFunction = state[currentState];
+		entries = stateFunction();
+	}while(end != currentState);
+	
 	return 0;
 }
 
-int StartState(){}
+int StartState(){
+
+}
 int IntegerState(){}
 int DecimalState(){}
 int EndState(){}
