@@ -8,7 +8,7 @@
 int main(int argc, char **argv) {
 	currentState = start;
 	enum inputType entries;
-	int (* stateFunction)(void);
+	int (* stateFunction)(void);  // function pointer for each State
 	char *input = argv[1];
 	int lengthOfInput = strlen(input);
 	int i;
@@ -24,6 +24,35 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
+/**
+ * Checks to see what the input is
+ * @param  input [what the user enters]
+ * @return       [result]
+ */
+enum inputType GetInputType(char input){
+	enum inputType result;
+	if(isdigit(input)){
+		result = isDigit;
+	}else if(input == '+'){
+		result = isPosSign;
+	}else if(input == '-'){
+		result = isNegSign;
+	}else if(input == '.'){
+		result = isPoint;
+	}else if(input == '\0'){
+		result = isTerminator;
+	}else{
+		result = isInvalid;
+	}
+	return result;
+}
+
+/**
+ * Should start in StartState every time.
+ * Evaluates the input character and 
+ * decides where to transition from it
+ * @return currentState
+ */
 int StartState(){
 	printf("In Start state with input of %c\n", character);
 	enum inputType iType = GetInputType(character);
@@ -50,25 +79,11 @@ int StartState(){
 	}
 }
 
-enum inputType GetInputType(char input){
-	enum inputType result;
-	if(isdigit(input)){
-		result = isDigit;
-	}else if(input == '+'){
-		result = isPosSign;
-	}else if(input == '-'){
-		result = isNegSign;
-	}else if(input == '.'){
-		result = isPoint;
-	}else if(input == '\0'){
-		result = isTerminator;
-	}else{
-		result = isInvalid;
-	}
-	return result;
-}
-	
-
+/**
+ * If the input is an digit then it is transitioned
+ * to this state.
+ * @return [currentState]
+ */
 int IntegerState(){
 	printf("In integer state with input of %c\n", character);
 	enum inputType iType = GetInputType(character);
@@ -96,6 +111,11 @@ int IntegerState(){
 	}
 }
 
+/**
+ * If the input is a decimal point then it
+ * moves to this state
+ * @return [currentState]
+ */
 int DecimalState(){
 	printf("In decimal state with input of %c\n", character);
 	enum inputType iType = GetInputType(character);
@@ -125,4 +145,7 @@ int DecimalState(){
 	}
 }
 
+/**
+ * finished
+ */
 int EndState(){}
