@@ -1,11 +1,5 @@
 #include "C_STATE.h"
 
-int sign;
-double value;
-double point;
-char character;
-enum states currentState;
-
 int main(int argc, char **argv) {
 	currentState = start;
 	enum inputType entries;
@@ -25,25 +19,6 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-
-enum inputType GetInputType(char input){
-	enum inputType result;
-	if(isdigit(input)){
-		result = isDigit;
-	}else if(input == '+'){
-		result = isPosSign;
-	}else if(input == '-'){
-		result = isNegSign;
-	}else if(input == '.'){
-		result = isPoint;
-	}else if(input == '\0'){
-		result = isTerminator;
-	}else{
-		result = isInvalid;
-	}
-	return result;
-}
-	
 int StartState(){
 	printf("In Start state with input of %c\n", character);
 	enum inputType iType = GetInputType(character);
@@ -69,6 +44,26 @@ int StartState(){
 		currentState = end;
 	}
 }
+
+enum inputType GetInputType(char input){
+	enum inputType result;
+	if(isdigit(input)){
+		result = isDigit;
+	}else if(input == '+'){
+		result = isPosSign;
+	}else if(input == '-'){
+		result = isNegSign;
+	}else if(input == '.'){
+		result = isPoint;
+	}else if(input == '\0'){
+		result = isTerminator;
+	}else{
+		result = isInvalid;
+	}
+	return result;
+}
+	
+
 int IntegerState(){
 	printf("In integer state with input of %c\n", character);
 	enum inputType iType = GetInputType(character);
@@ -95,6 +90,7 @@ int IntegerState(){
 		currentState = end;
 	}
 }
+
 int DecimalState(){
 	printf("In decimal state with input of %c\n", character);
 	enum inputType iType = GetInputType(character);
@@ -124,7 +120,4 @@ int DecimalState(){
 	}
 }
 
-int EndState(){
-
-}
-
+int EndState(){}

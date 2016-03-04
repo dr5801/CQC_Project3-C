@@ -44,4 +44,10 @@ static const struct transition change_state[] = {
 	{decimal, isInvalid, end}
 };
 
+int sign;
+double value;
+double point;
+char character;
+enum states currentState;
+
 #endif // C_STATE
