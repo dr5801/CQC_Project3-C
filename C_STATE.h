@@ -1,5 +1,10 @@
-#ifndef C_STATE
-#define C_STATE
+/**
+ * Drew Rife and Brad Olah
+ *
+ * Holds transition table for the state machine
+ */
+#ifndef C_STATE_H
+#define C_STATE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,8 +26,11 @@ struct transition{
 	enum states nextState;
 };
 
-enum inputType GetInputType(char input);
+enum inputType GetInputType(char input); // what the user enters
 
+/**
+ * transition table
+ */
 static const struct transition change_state[] = {
 	{start, isPosSign, integer},
 	{start, isNegSign, integer},
@@ -44,10 +52,10 @@ static const struct transition change_state[] = {
 	{decimal, isInvalid, end}
 };
 
-int sign;
-double value;
-double point;
-char character;
-enum states currentState;
+int sign;  // the sign of the input
+double value;  // the calculated result from input
+double point;  // determines whether there is a decimal or not
+char character;  // the input character
+enum states currentState;  // the current state of the machine is in
 
-#endif // C_STATE
+#endif // C_STATE_H

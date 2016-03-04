@@ -1,3 +1,8 @@
+/**
+ * Drew Rife and Brad Olah
+ *
+ * A state machine in C
+ */
 #include "C_STATE.h"
 
 int main(int argc, char **argv) {
@@ -7,15 +12,15 @@ int main(int argc, char **argv) {
 	char *input = argv[1];
 	int lengthOfInput = strlen(input);
 	int i;
-	input[lengthOfInput] ='\0';
-	for(i = 0;i<=lengthOfInput;i++){
-		int strLen = strlen(*argv);	
+	input[lengthOfInput]='\0';
+	
+	for(i = 0;i<=lengthOfInput;i++){	
 		character = input[i];
-		printf("Input char = %c  ", character);
+		printf("Input char = %c \n", character);
 		stateFunction = state[currentState];
 		entries = stateFunction();
 	}
-	printf("The calculated value is: %.2f\n",value);
+	printf("\nThe calculated value is: %.2f\n",value);
 	return 0;
 }
 

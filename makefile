@@ -4,8 +4,7 @@
 ## Professor: Dr. Wellington
 ## Class: SWE 300-01
 ##
-## A standard makefile compile the source code
-##
+## A simple makefile compile the source code
 #############################################################
 CC = gcc
 CFLAGS = -g
